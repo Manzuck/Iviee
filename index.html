@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message For Amaka</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('amaka.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .question-container {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .yes-btn {
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .yes-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .no-btn {
+            background-color: #f44336;
+            color: white;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+        }
+        
+        .no-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #ff6b6b, #ff9e6b);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .message {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            display: none;
+        }
+        
+        .message h2 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        
+        .message p {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff6b6b;
+            opacity: 0;
+        }
+        
+        .response-summary {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 15px;
+            display: none;
+            text-align: left;
+        }
+        
+        .response-summary h3 {
+            color: #2196F3;
+            margin-bottom: 15px;
+        }
+        
+        .response-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .email-form {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fff4e6;
+            border-radius: 15px;
+            display: none;
+            text-align: left;
+        }
+        
+        .email-form h3 {
+            color: #e67700;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .submit-btn {
+            background-color: #e67700;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .submit-btn:hover {
+            background-color: #ff8c1a;
+        }
+        
+        .email-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            button {
+                width: 100%;
+            }
+            
+            .question {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>A Special Message For Amaka <span class="heart">❤️</span></h1>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <div id="question-container" class="question-container">
+            <div class="question" id="question">Do I make you happy?</div>
+            <div class="buttons">
+                <button class="yes-btn" onclick="recordResponse('Do I make you happy?', 'Yes')">Yes</button>
+                <button class="no-btn" onclick="recordResponse('Do I make you happy?', 'No')">No</button>
+            </div>
+        </div>
+        
+        <div id="message" class="message">
+            <h2>Yay! You've made me the happiest person! 🎉</h2>
+            <p>I promise to always cherish and adore you. Looking forward to creating beautiful memories together!</p>
+        </div>
+        
+        <div id="response-summary" class="response-summary">
+            <h3>Your Responses:</h3>
+            <div id="responses-list"></div>
+        </div>
+        
+        <div id="email-form" class="email-form">
+            <h3>Share your responses with me</h3>
+            <p>Enter your name and email below to send me your responses:</p>
+            <div class="form-group">
+                <label for="user-name">Your Name:</label>
+                <input type="text" id="user-name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="user-email">Your Email:</label>
+                <input type="email" id="user-email" placeholder="Enter your email">
+            </div>
+            <button class="submit-btn" onclick="sendEmail()">Send Responses</button>
+            <div id="email-status" class="email-status"></div>
+        </div>
+    </div>
+
+    <script>
+        // Store questions and responses
+        const questions = [
+            "Do I make you happy?",
+            "Do you think we can be together?",
+            "Do you love me?",
+            "Will you be my girlfriend?"
+        ];
+        
+        let currentQuestionIndex = 0;
+        let responses = [];
+        
+        // Update progress bar
+        function updateProgressBar() {
+            const progress = document.getElementById('progress');
+            const percentage = (currentQuestionIndex / questions.length) * 100;
+            progress.style.width = percentage + '%';
+        }
+        
+        // Record response and move to next question
+        function recordResponse(question, answer) {
+            // Store the response
+            responses.push({
+                question: question,
+                answer: answer,
+                timestamp: new Date().toLocaleString()
+            });
+            
+            // If it's the last question or if "No" was clicked on the last question
+            if (currentQuestionIndex === questions.length - 1 || 
+                (currentQuestionIndex === questions.length - 1 && answer === 'No')) {
+                showFinalMessage();
+                return;
+            }
+            
+            // Move to next question
+            currentQuestionIndex++;
+            showQuestion();
+        }
+        
+        // Show the current question
+        function showQuestion() {
+            const questionElement = document.getElementById('question');
+            const questionContainer = document.getElementById('question-container');
+            
+            questionElement.textContent = questions[currentQuestionIndex];
+            updateProgressBar();
+            
+            // If it's the last question, change button text
+            if (currentQuestionIndex === questions.length - 1) {
+                const buttons = questionContainer.querySelectorAll('button');
+                buttons[0].textContent = "Yes, I will!";
+                buttons[1].textContent = "No";
+            }
+        }
+        
+        // Show final message and responses
+        function showFinalMessage() {
+            const questionContainer = document.getElementById('question-container');
+            const message = document.getElementById('message');
+            const responseSummary = document.getElementById('response-summary');
+            const responsesList = document.getElementById('responses-list');
+            const emailForm = document.getElementById('email-form');
+            
+            // Hide question container
+            questionContainer.style.display = 'none';
+            
+            // Show final message
+            message.style.display = 'block';
+            
+            // Show response summary
+            responseSummary.style.display = 'block';
+            
+            // Show email form
+            emailForm.style.display = 'block';
+            
+            // Display all responses
+            responsesList.innerHTML = '';
+            responses.forEach(response => {
+                const responseItem = document.createElement('div');
+                responseItem.className = 'response-item';
+                responseItem.innerHTML = `
+                    <strong>${response.question}</strong><br>
+                    Your answer: <span style="color: ${response.answer === 'Yes' ? '#4CAF50' : '#f44336'}">${response.answer}</span>
+                `;
+                responsesList.appendChild(responseItem);
+            });
+            
+            // Add the final response if needed
+            if (currentQuestionIndex === questions.length - 1) {
+                const finalResponseItem = document.createElement('div');
+                finalResponseItem.className = 'response-item';
+                finalResponseItem.innerHTML = `
+                    <strong>${questions[questions.length - 1]}</strong><br>
+                    Your answer: <span style="color: #4CAF50">Yes</span>
+                `;
+                responsesList.appendChild(finalResponseItem);
+                
+                // Also add to responses array for email
+                responses.push({
+                    question: questions[questions.length - 1],
+                    answer: 'Yes',
+                    timestamp: new Date().toLocaleString()
+                });
+            }
+            
+            // Create confetti effect
+            createConfetti();
+            
+            // Complete progress bar
+            document.getElementById('progress').style.width = '100%';
+        }
+        
+        // Function to create confetti effect
+        function createConfetti() {
+            const container = document.querySelector('.container');
+            const colors = ['#ff6b6b', '#4CAF50', '#ffc107', '#2196F3', '#9c27b0'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                container.appendChild(confetti);
+                
+                // Animate confetti
+                setTimeout(() => {
+                    confetti.style.transition = 'all 1s ease';
+                    confetti.style.opacity = '1';
+                    confetti.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px) rotate(${Math.random() * 360}deg)`;
+                    
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        confetti.style.opacity = '0';
+                        setTimeout(() => confetti.remove(), 1000);
+                    }, 1000);
+                }, 10);
+            }
+        }
+        
+        // Send email with responses
+        function sendEmail() {
+            const userName = document.getElementById('user-name').value;
+            const userEmail = document.getElementById('user-email').value;
+            const emailStatus = document.getElementById('email-status');
+            
+            // Validate inputs
+            if (!userName || !userEmail) {
+                emailStatus.textContent = "Please enter both your name and email.";
+                emailStatus.className = "email-status error";
+                emailStatus.style.display = "block";
+                return;
+            }
+            
+            if (!isValidEmail(userEmail)) {
+                emailStatus.textContent = "Please enter a valid email address.";
+                emailStatus.className = "email-status error";
+                emailStatus.style.display = "block";
+                return;
+            }
+            
+            // Prepare email content
+            let emailBody = `Amaka's Responses:%0D%0A%0D%0A`;
+            responses.forEach(response => {
+                emailBody += `Question: ${response.question}%0D%0A`;
+                emailBody += `Answer: ${response.answer}%0D%0A`;
+                emailBody += `Time: ${response.timestamp}%0D%0A%0D%0A`;
+            });
+            
+            // Create mailto link
+            const subject = `Amaka's Response to Your Questions`;
+            const body = `${emailBody}%0D%0ASent from: ${userName} (${userEmail})`;
+            
+            // Open email client
+            window.location.href = `mailto:chinazorogoke@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Show success message
+            emailStatus.textContent = "Thank you! Your responses have been sent.";
+            emailStatus.className = "email-status success";
+            emailStatus.style.display = "block";
+            
+            // Hide the form after successful submission
+            document.getElementById('email-form').style.display = 'none';
+        }
+        
+        // Validate email format
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Initialize the first question
+        updateProgressBar();
+    </script>
+</body>
+</html>
